@@ -70,8 +70,47 @@
       position: relative;
       box-shadow: 0 8px 32px rgba(0,85,164,0.10);
       z-index: 0;
+      overflow: hidden;
     }
-    .hero > * { position: relative; z-index: 1; }
+    .hero > * { position: relative; z-index: 2; }
+    
+    /* Background slideshow */
+    .hero-slideshow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .hero-slide.active {
+      opacity: 0.3; /* Translucent effect */
+    }
+    
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.7) 0%, rgba(226, 232, 240, 0.7) 100%);
+      z-index: 1;
+    }
     .hero h1 {
       font-family: var(--heading); font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -1px; color: var(--accent);
     }
@@ -330,6 +369,12 @@
   </nav>
   <!-- HERO -->
   <header class="hero fade-in">
+    <div class="hero-slideshow">
+      <div class="hero-slide" style="background-image: url('Jang.jpeg');"></div>
+      <div class="hero-slide" style="background-image: url('Kaya.jpeg');"></div>
+      <div class="hero-slide" style="background-image: url('slide3.jpeg');"></div>
+      <div class="hero-slide" style="background-image: url('slide4.jpeg');"></div>
+    </div>
     <h1>Sell Your Business in 3 Months</h1>
     <p>Fast-track your exit with our expert M&A advisory. Trusted by 400+ owners. £50m+ in deals.</p>
     <a href="#contact" class="btn cta">Free Exit Strategy Call</a>
@@ -625,6 +670,29 @@
     }
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('DOMContentLoaded', revealOnScroll);
+    
+    // Hero slideshow
+    function initHeroSlideshow() {
+      const slides = document.querySelectorAll('.hero-slide');
+      if (slides.length === 0) return;
+      
+      let currentSlide = 0;
+      
+      // Show first slide
+      slides[currentSlide].classList.add('active');
+      
+      function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }
+      
+      // Change slide every 5 seconds
+      setInterval(nextSlide, 5000);
+    }
+    
+    // Initialize slideshow when DOM is loaded
+    window.addEventListener('DOMContentLoaded', initHeroSlideshow);
   </script>
 </body>
 </html>
