@@ -1,0 +1,277 @@
+/* ===== BASELINE RESET ===== */
+html { box-sizing: border-box; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: inherit; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+img, svg, video, canvas { display: block; max-width: 100%; height: auto; }
+
+/* ===== ROOT VARIABLES ===== */
+:root {
+  --primary: #1a2233;
+  --accent: #0055A4;
+  --accent2: #00B4D8;
+  --light: #f8fafc;
+  --dark: #222;
+  --font: 'Inter', Arial, sans-serif;
+  --heading: 'Montserrat', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--primary);
+  background: #fff;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===== NAVIGATION ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,85,164,0.04);
+  border-bottom: 1px solid #e5e5e5;
+}
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.logo {
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+  transition: color .2s;
+}
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--accent2);
+  outline: none;
+}
+.btn.cta {
+  background: linear-gradient(90deg, var(--accent) 60%, var(--accent2) 100%);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.7rem 2rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,85,164,0.10);
+  transition: background 0.2s, transform 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn.cta:hover,
+.btn.cta:focus {
+  background: linear-gradient(90deg, var(--accent2) 60%, var(--accent) 100%);
+  transform: scale(1.04);
+  outline: 2px solid var(--accent2);
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    box-shadow: 0 8px 32px rgba(0,85,164,0.10);
+  }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+  .nav-container { flex-direction: row; gap: 1rem; padding: 1rem; }
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  min-height: clamp(520px, 60vh, 720px);
+  isolation: isolate;
+}
+.hero > * { position: relative; z-index: 2; }
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms ease;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 60% 35%;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.42);
+  z-index: 1;
+  pointer-events: none;
+}
+.hero h1 {
+  font-family: var(--heading);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 700;
+  margin: 0 1rem .75rem;
+  letter-spacing: -1px;
+  color: var(--accent);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.hero p {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  margin: 0 1rem 1.5rem;
+  color: var(--primary);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.hero .btn.cta {
+  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  margin-top: 1rem;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat strong {
+  font-size: 2.1rem;
+  color: var(--accent2);
+  font-weight: 700;
+}
+.hero-stat span {
+  display: block;
+  color: #1a2233;
+  font-size: 1rem;
+}
+.trust-badges {
+  margin: 2rem auto 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.trust-badge {
+  background: #fff;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0,85,164,0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.divider { height: 40px; }
+
+/* ===== STICKY CTA ===== */
+.sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999 !important;
+  background: linear-gradient(90deg, var(--accent) 60%, var(--accent2) 100%);
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 -2px 8px rgba(0,85,164,0.10);
+  pointer-events: auto !important;
+}
+.sticky-cta a {
+  background: linear-gradient(90deg, var(--accent) 60%, var(--accent2) 100%);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,85,164,0.10);
+  transition: background 0.2s, transform 0.2s;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.sticky-cta a:hover,
+.sticky-cta a:focus {
+  background: linear-gradient(90deg, var(--accent2) 60%, var(--accent) 100%);
+  transform: scale(1.04);
+  outline: 2px solid var(--accent2);
+}
+@media (max-width: 700px) { .sticky-cta { display: block; } }
+body.has-sticky-cta { padding-bottom: 60px; }
+
+/* ===== SECTION TITLES ===== */
+.section-title, .testimonials-title, .pricing-title, .faq-title, .contact-title {
+  font-family: var(--heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+/* ===== REMAINING ORIGINAL SECTIONS ===== */
+/* Keep all your existing Struggles, Difference, Steps, Testimonials, Pricing, Team, FAQ, Contact, Footer styles from your current file unchanged */
